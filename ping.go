@@ -21,7 +21,7 @@ func main() {
 	}
 	app := cli.NewApp()
 	app.Name = "riemann-ping"
-	app.Version = "0.0.2"
+	app.Version = "0.0.3"
 	app.Author = "Brendan Tobolaski"
 	app.Email = "brendan@signalvine.com"
 	app.Flags = []cli.Flag{
@@ -151,6 +151,7 @@ func getRequest(url string) {
 	startTime := time.Now()
 	response, err := http.Get(url)
 	duration := time.Since(startTime)
+	response.Body.Close()
 	if err != nil {
 		log.Printf("Failed to get '%s' because %s", url, err)
 		return

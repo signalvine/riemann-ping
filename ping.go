@@ -124,12 +124,13 @@ func processGlobalFlags(c *cli.Context) time.Duration {
 }
 
 func processAttributes(attributes []string) (map[string]string, error) {
-	parsedAttributes := *new(map[string]string)
+	parsedAttributes := make(map[string]string)
 	for _, combined := range attributes {
 		parts := strings.Split(combined, "=")
 		if len(parts) != 2 {
 			return parsedAttributes, fmt.Errorf("Failed to parse %s as attitube, the format is incorrect", combined)
 		}
+		parsedAttributes[parts[0]] = parts[1]
 	}
 
 	return parsedAttributes, nil

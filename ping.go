@@ -21,7 +21,9 @@ func main() {
 	}
 	app := cli.NewApp()
 	app.Name = "riemann-ping"
-	app.Version = "0.0.1"
+	app.Version = "0.0.2"
+	app.Author = "Brendan Tobolaski"
+	app.Email = "brendan@signalvine.com"
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:   "host",
@@ -113,6 +115,7 @@ func processGlobalFlags(c *cli.Context) time.Duration {
 	riemannSend = func(url, method string, duration float64) {
 		event := eventTemplate
 		event.Service = fmt.Sprintf("%s %s", url, method)
+		event.Time = time.Now().Unix()
 		event.Metric = duration
 		client.Send(&event)
 	}
